@@ -3,13 +3,25 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  InputConverter inputConverter;
+  late InputConverter inputConverter;
 
   setUp(() {
     inputConverter = InputConverter();
   });
 
   group('stringToUnsignedInt', () {
+    test(
+      'should return a Failure when the string is null',
+          () async {
+        // arrange
+        final str = null;
+        // act
+        final result = inputConverter.stringToUnsignedInteger(str);
+        // assert
+        expect(result, Left(InvalidInputFailure()));
+      },
+    );
+
     test(
       'should return an integer when the string represents an unsigned integer',
       () async {

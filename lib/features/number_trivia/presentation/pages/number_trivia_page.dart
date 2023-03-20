@@ -1,5 +1,4 @@
 import 'package:clean_architecture_tdd_course/features/number_trivia/presentation/bloc/bloc.dart';
-import 'package:clean_architecture_tdd_course/features/number_trivia/presentation/bloc/number_trivia_bloc.dart';
 import 'package:clean_architecture_tdd_course/features/number_trivia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,18 +30,14 @@ class NumberTriviaPage extends StatelessWidget {
               // Top half
               BlocBuilder<NumberTriviaBloc, NumberTriviaState>(
                 builder: (context, state) {
-                  if (state is Empty) {
-                    return MessageDisplay(
-                      message: 'Start searching!',
-                    );
-                  } else if (state is Loading) {
+                  if (state is Loading) {
                     return LoadingWidget();
                   } else if (state is Loaded) {
                     return TriviaDisplay(numberTrivia: state.trivia);
                   } else if (state is Error) {
-                    return MessageDisplay(
-                      message: state.message,
-                    );
+                    return MessageDisplay(message: state.message);
+                  } else {
+                    return MessageDisplay(message: 'Start searching!');
                   }
                 },
               ),
